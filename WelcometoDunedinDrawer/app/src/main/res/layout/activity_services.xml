@@ -7,14 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="bit.darvja1.welcometodunedinlist.ShoppingActivity">
+    tools:context="bit.darvja1.welcometodunedindrawer.ServicesActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Shopping"
-        android:id="@+id/txtShopping"
+        android:text="Services"
+        android:id="@+id/txtServices"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -22,10 +22,10 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgShopping"
-        android:layout_below="@+id/txtShopping"
+        android:layout_height="280sp"
+        android:id="@+id/imgLibrary"
+        android:layout_below="@+id/txtServices"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="41dp"
         android:background="@drawable/customhouse" />
 </RelativeLayout>

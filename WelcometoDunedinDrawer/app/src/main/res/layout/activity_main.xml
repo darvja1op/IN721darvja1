@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All About Dunedin"
+        android:id="@+id/txtTitle"
+        android:textSize="34sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="140sp"
+        android:id="@+id/imgOctogan"
+        android:layout_below="@+id/txtTitle"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/octagon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:longClickable="true"
+        android:layout_margin="54dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvGroups"
+        android:layout_below="@+id/imgOctogan"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:choiceMode="singleChoice"
+        android:background="#FFF"
+        android:layout_marginTop="47dp"
+        android:layout_gravity="start"/>
+</android.support.v4.widget.DrawerLayout>
