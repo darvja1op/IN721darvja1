@@ -10,10 +10,13 @@
     tools:context="bit.darvja1.multiplefragments.MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="400sp"
         android:layout_height="400sp"
         android:id="@+id/fragment_container"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     </LinearLayout>
 
     <Button
