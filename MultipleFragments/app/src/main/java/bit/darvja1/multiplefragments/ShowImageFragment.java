@@ -13,9 +13,6 @@ public class ShowImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_image, container, false);
         ShowImageFragment fragment = new ShowImageFragment();
-        // Inflate the layout for this fragment
-
-
 
         return fragmentView;
     }

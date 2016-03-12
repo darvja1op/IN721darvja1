@@ -16,13 +16,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnImage = (Button) findViewById(R.id.btnImage);
-        btnImage.setOnClickListener(new ButtonOnClickListener());
+        btnImage.setOnClickListener(new ShowImageButtonOnClickListener());
 
         Button btnList = (Button) findViewById(R.id.btnListView);
-        btnList.setOnClickListener(new ButtonOnClickListener());
+        btnList.setOnClickListener(new ShowListViewButtonOnClickListener());
     }
 
-    private class ButtonOnClickListener implements View.OnClickListener{
+    private class ShowImageButtonOnClickListener implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
@@ -31,6 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
             android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.fragment_container,imageFragment);
+            ft.commit();
+        }
+    }
+    private class ShowListViewButtonOnClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            Fragment listFragment = new ShowListFragment();
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+
+            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.fragment_container,listFragment);
             ft.commit();
         }
     }

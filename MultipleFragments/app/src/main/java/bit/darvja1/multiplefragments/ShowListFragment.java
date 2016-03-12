@@ -14,7 +14,7 @@ import android.widget.ListView;
 public class ShowListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_image, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_list, container, false);
         ShowListFragment fragment = new ShowListFragment();
 
         ListView lvCities = (ListView) fragmentView.findViewById(R.id.listView);
@@ -22,8 +22,7 @@ public class ShowListFragment extends Fragment {
         Resources resourceMachine = getResources();
         String[] cityNamesArray = resourceMachine.getStringArray(R.array.cities);
 
-        ArrayAdapter<String> cityNamesAdapter = new ArrayAdapter<String>(getActivity(),
-                                                                            android.R.layout.simple_list_item_1,cityNamesArray);
+        ArrayAdapter<String> cityNamesAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,cityNamesArray);
         lvCities.setAdapter(cityNamesAdapter);
 
         return fragmentView;
