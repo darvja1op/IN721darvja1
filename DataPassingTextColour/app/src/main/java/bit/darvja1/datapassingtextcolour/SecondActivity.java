@@ -1,5 +1,6 @@
 package bit.darvja1.datapassingtextcolour;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ public class SecondActivity extends AppCompatActivity {
         TextView txtView = (TextView) findViewById(R.id.txtColoured);
         int color = txtView.getCurrentTextColor();
 
-        Intent 
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("colour",color);
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 }
