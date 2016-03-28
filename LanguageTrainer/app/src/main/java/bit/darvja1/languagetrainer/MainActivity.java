@@ -22,9 +22,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent goIntent = new Intent(MainActivity.this,QuestionActivity.class);
-            Manager manager = new Manager();
-            Question[] questions = manager.createQuestions();
-
             startActivity(goIntent);
         }
     }

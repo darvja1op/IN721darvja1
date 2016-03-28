@@ -1,6 +1,8 @@
 package bit.darvja1.languagetrainer;
 
 
+import java.util.Random;
+
 public class Manager {
     public Question[] createQuestions(){
         Question[] questions = new Question[11];
@@ -27,6 +29,24 @@ public class Manager {
         questions[8] = qSheep;
         questions[9] = qStreet;
         questions[10] = qChair;
+
+        return questions;
+    }
+
+    public Question[] shuffleQuestions(Question[] questions){
+        Random rand = new Random();
+        int position1 = 0;
+        int position2 = 0;
+        Question temp;
+
+        for (int i = 0; i < 100; i++){
+            position1 = rand.nextInt(questions.length);
+            position2 = rand.nextInt(questions.length);
+
+            temp = questions[position1];
+            questions[position1] = questions[position2];
+            questions[position2] = temp;
+        }
 
         return questions;
     }
