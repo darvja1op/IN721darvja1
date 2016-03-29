@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -19,7 +20,7 @@ public class QuestionActivity extends AppCompatActivity {
     Manager manager;
     Question[] shuffledQuestions;
     Question[] questions;
-    int count = 0;
+    int questionNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,26 +33,35 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button btnNext = (Button) findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new ButtonClick());
+
+        questionNumber = 0;
+        displayQuestion();
     }
 
     private class ButtonClick implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
-            count++;
-            displayQuestion();
+            RadioGroup rdoGroup = (RadioGroup) findViewById(R.id.rdoGroup);
+            if (rdoGroup.getCheckedRadioButtonId() == -1){
+                Toast.makeText(QuestionActivity.this,"Please select an Article",Toast.LENGTH_LONG).show();
+            }
+            else{
+                questionNumber++;
+                displayQuestion();
+            }
         }
     }
 
     public void displayQuestion(){
+        TextView txtEnglish = (TextView) findViewById(R.id.txtEnglish);
+        TextView txtGerman = (TextView) findViewById(R.id.txtGerman);
+        ImageView imageView = (ImageView) findViewById(R.id.imgView);
+        TextView txtNumber = (TextView) findViewById(R.id.txtNumber);
 
-        Fragment questionFragment = new QuestionFragment();
-        FragmentManager fm = getFragmentManager();
-
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_question, questionFragment);
-        ft.commit();
-        TextView txtView = (TextView) questionFragment.getView().findViewById(R.id.txtEnglish);
-        txtView.setText(shuffledQuestions[count].getEnglish());
+        txtNumber.setText(Integer.toString(questionNumber+1));
+        txtEnglish.setText(shuffledQuestions[questionNumber].getEnglish());
+        txtGerman.setText(shuffledQuestions[questionNumber].getEnglish());
+        imageView.setImageResource(shuffledQuestions[questionNumber].getImgPath());
     }
 }

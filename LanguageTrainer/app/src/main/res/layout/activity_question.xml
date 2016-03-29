@@ -9,12 +9,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="bit.darvja1.languagetrainer.QuestionActivity">
 
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_question"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtGerman"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="28dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtEnglish"
+        android:layout_alignTop="@+id/txtGerman"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="29dp"
+        android:layout_marginEnd="29dp"
+        android:textColor="#4465eb"
+        android:textStyle="italic"
+        android:layout_gravity="right|top" />
+
+    <ImageView
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:id="@+id/imgView"
+        android:layout_below="@+id/txtGerman"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:layout_gravity="center_horizontal|top" />
 
     <RadioGroup
         android:layout_width="200sp"
@@ -56,4 +87,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtNumber"
+        android:layout_above="@+id/btnNext"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="34sp" />
 </RelativeLayout>
