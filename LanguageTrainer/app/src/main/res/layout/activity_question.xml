@@ -21,7 +21,8 @@
         android:layout_marginLeft="29dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="28dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="29sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:layout_marginEnd="29dp"
         android:textColor="#4465eb"
         android:textStyle="italic"
-        android:layout_gravity="right|top" />
+        android:layout_gravity="right|top"
+        android:textSize="29sp" />
 
     <ImageView
         android:layout_width="200sp"
@@ -61,21 +63,21 @@
             android:layout_height="wrap_content"
             android:text="Die"
             android:id="@+id/rdoBtnDie"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Der"
             android:id="@+id/rdoBtnDer"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Das"
             android:id="@+id/rdoBtnDas"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
     </RadioGroup>
 
@@ -94,8 +96,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/txtNumber"
-        android:layout_above="@+id/btnNext"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="34sp" />
+        android:textSize="40sp"
+        android:layout_alignTop="@+id/rdoGroup"
+        android:layout_alignRight="@+id/btnNext"
+        android:layout_alignEnd="@+id/btnNext" />
 </RelativeLayout>
