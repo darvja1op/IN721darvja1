@@ -1,50 +1,60 @@
 package bit.darvja1.languagetrainer;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class QuestionActivity extends AppCompatActivity {
 
-    TextView txtEnglish = (TextView) findViewById(R.id.txtEnglish);
-    TextView txtGerman = (TextView) findViewById(R.id.txtGerman);
-
-    Button btnNext = (Button) findViewById(R.id.btnNext);
-
-
-    RadioGroup rdoGroup = (RadioGroup) findViewById(R.id.rdoGroup);
-    RadioButton rdoBtnDie = (RadioButton) findViewById(R.id.rdoBtnDie);
-    RadioButton rdoBtnDas = (RadioButton) findViewById(R.id.rdoBtnDas);
-    RadioButton rdoBtnDer = (RadioButton) findViewById(R.id.rdoBtnDer);
-
+    Manager manager;
+    Question[] shuffledQuestions;
+    Question[] questions;
     int count = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
-        Manager manager = new Manager();
-        Question[] questions = manager.createQuestions();
-        manager.shuffleQuestions(questions);
+        manager = new Manager();
+        questions = manager.createQuestions();
+        shuffledQuestions = manager.shuffleQuestions(questions);
 
-        populateQuestion(questions);
+        Button btnNext = (Button) findViewById(R.id.btnNext);
+        btnNext.setOnClickListener(new ButtonClick());
+
+        displayQuestion();
     }
 
-    public void populateQuestion(Question[] questions){
-        txtEnglish.setText(questions[count].getEnglish());
-    }
-
-    private class ButtonOnClick implements View.OnClickListener{
+    private class ButtonClick implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
             count++;
-            populateQuestion(questions);
+            displayQuestion();
         }
+    }
+
+    public void displayQuestion(){
+        QuestionFragment questionFragment = new QuestionFragment();
+        FragmentManager fm = getFragmentManager();
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_question,questionFragment);
+        ft.commit();
+
+        questionFragment.changeEnglishText(shuffledQuestions[count].getEnglish());
+        questionFragment.changeGermanText(shuffledQuestions[count].getNoun());
+        questionFragment.changeImage(shuffledQuestions[count].getImgPath());
     }
 }

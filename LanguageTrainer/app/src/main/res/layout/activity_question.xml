@@ -9,50 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="bit.darvja1.languagetrainer.QuestionActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/txtGerman"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="28dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/txtEnglish"
-        android:layout_alignTop="@+id/txtGerman"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="29dp"
-        android:layout_marginEnd="29dp"
-        android:textColor="#4465eb"
-        android:textStyle="italic" />
-
-    <ImageView
-        android:layout_width="200sp"
-        android:layout_height="200sp"
-        android:id="@+id/imgView"
-        android:layout_below="@+id/txtGerman"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next Question"
-        android:id="@+id/btnNext"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_question"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <RadioGroup
         android:layout_width="200sp"
@@ -60,7 +22,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/rdoGroup">
+        android:id="@+id/rdoGroup"
+        android:layout_gravity="left|bottom">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -85,4 +48,12 @@
 
     </RadioGroup>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Question"
+        android:id="@+id/btnNext"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

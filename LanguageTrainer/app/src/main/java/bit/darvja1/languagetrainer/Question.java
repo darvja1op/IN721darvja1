@@ -1,23 +1,23 @@
 package bit.darvja1.languagetrainer;
 
 public class Question {
-    private String imgPath;
+    private int imgPath;
     private String english;
     private String noun;
     private String article;
 
-    public Question(String english,String noun, String article, String imgPath){
+    public Question(String english,String noun, String article, int imgPath){
         this.english = english;
         this.noun = noun;
         this.article = article;
         this.imgPath = imgPath;
     }
 
-    public String getImgPath() {
+    public int getImgPath() {
         return imgPath;
     }
 
-    public void setImgPath(String imgPath) {
+    public void setImgPath(int imgPath) {
         this.imgPath = imgPath;
     }
 
