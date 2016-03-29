@@ -13,25 +13,26 @@ import android.widget.TextView;
 
 public class QuestionFragment extends Fragment {
 
+    View fragmentView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_question, container, false);
+        fragmentView = inflater.inflate(R.layout.fragment_question, container, false);
 
         return fragmentView;
     }
 
     public void changeEnglishText(String english){
-        TextView txtEnglish = (TextView) getView().findViewById(R.id.txtEnglish);
+        TextView txtEnglish = (TextView) fragmentView.findViewById(R.id.txtEnglish);
         txtEnglish.setText(english);
     }
 
     public void changeGermanText(String german){
-        TextView txtGerman = (TextView) getView().findViewById(R.id.txtGerman);
+        TextView txtGerman = (TextView) fragmentView.findViewById(R.id.txtGerman);
         txtGerman.setText(german);
     }
 
     public void changeImage(int resourceID){
-        ImageView imgView = (ImageView) getView().findViewById(R.id.imgView);
+        ImageView imgView = (ImageView) fragmentView.findViewById(R.id.imgView);
         imgView.setImageResource(resourceID);
     }
 }

@@ -12,14 +12,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class QuestionActivity extends AppCompatActivity {
 
     Manager manager;
     Question[] shuffledQuestions;
     Question[] questions;
     int count = 0;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,6 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button btnNext = (Button) findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new ButtonClick());
-
-        displayQuestion();
     }
 
     private class ButtonClick implements View.OnClickListener{
@@ -46,15 +44,14 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void displayQuestion(){
-        QuestionFragment questionFragment = new QuestionFragment();
+
+        Fragment questionFragment = new QuestionFragment();
         FragmentManager fm = getFragmentManager();
 
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_question,questionFragment);
+        ft.replace(R.id.fragment_question, questionFragment);
         ft.commit();
-
-        questionFragment.changeEnglishText(shuffledQuestions[count].getEnglish());
-        questionFragment.changeGermanText(shuffledQuestions[count].getNoun());
-        questionFragment.changeImage(shuffledQuestions[count].getImgPath());
+        TextView txtView = (TextView) questionFragment.getView().findViewById(R.id.txtEnglish);
+        txtView.setText(shuffledQuestions[count].getEnglish());
     }
 }
