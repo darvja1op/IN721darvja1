@@ -30,6 +30,7 @@ public class ResultsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //exit program
+            finish();
         }
     }
 }

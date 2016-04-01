@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome to the Language Trainer App. When you&apos;re ready to embark your journey through the wonderful world of German articles press the Start Button!"
+        android:text="Welcome to the Language Trainer App. Press Start when you&apos;re ready to embark your journey through the wonderful world of German articles!"
         android:id="@+id/txtMessage"
         android:layout_below="@+id/txtTitle"
         android:layout_centerHorizontal="true"
