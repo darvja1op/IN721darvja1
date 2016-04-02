@@ -14,6 +14,9 @@ public class CorrectDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Correct!");
+        builder.setIcon(R.drawable.ic_correct);
+        builder.setMessage("Tap anywhere outside of this box to dismiss.");
+
 
         Dialog customDialog = builder.create();
 

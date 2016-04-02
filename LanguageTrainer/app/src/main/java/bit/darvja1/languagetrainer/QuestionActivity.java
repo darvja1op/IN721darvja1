@@ -67,7 +67,7 @@ public class QuestionActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.imgView);
         TextView txtNumber = (TextView) findViewById(R.id.txtNumber);
 
-        txtNumber.setText(Integer.toString(questionNumber+1));
+        txtNumber.setText("Q." + Integer.toString(questionNumber+1));
         txtEnglish.setText(shuffledQuestions[questionNumber].getEnglish());
         txtGerman.setText(shuffledQuestions[questionNumber].getNoun());
         imageView.setImageResource(shuffledQuestions[questionNumber].getImgPath());
