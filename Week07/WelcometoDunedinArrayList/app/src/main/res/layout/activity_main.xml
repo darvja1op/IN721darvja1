@@ -22,10 +22,12 @@
         android:id="@+id/imgOctogan"
         android:layout_below="@+id/txtTitle"
         android:layout_marginTop="28dp"
-        android:background="@drawable/octagon"
+        android:background="@drawable/op"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:longClickable="true" />
+        android:longClickable="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="wrap_content"
