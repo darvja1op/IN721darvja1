@@ -22,11 +22,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemClickListener((AdapterView.OnItemClickListener) new SpinnerListener());
-
+        //create database and populate with data
+        createDatabase();
+        //fetch current list of countries from database
         ArrayList<String> countries = getCountriesSQL();
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,countries);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new SpinnerListener());
     }
 
     private class SpinnerListener implements AdapterView.OnItemSelectedListener {
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public void createDatabase(){
         dbCities = openOrCreateDatabase("dbCountries",MODE_PRIVATE,null);
 
-        String dropQuery = "DROP TABLE tblCities;";
+        String dropQuery = "DROP TABLE IF EXISTS tblCities;";
         dbCities.execSQL(dropQuery);
 
         String createQuery = "CREATE TABLE IF NOT EXISTS tblCities("+
@@ -79,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRecord(String name, String country){
-        String addQuery = "INSERT INTO tblCities VALUES (null,"+name+","+country+");";
+        String addQuery = "INSERT INTO tblCities VALUES (null,'"+name+"','"+country+"');";
         dbCities.execSQL(addQuery);
     }
 
     public ArrayList<String> getCitiesSQL(String country){
-        String selectQuery = "SELECT cityName FROM tblCities WHERE countryName LIKE " + country;
+        String selectQuery = "SELECT cityName FROM tblCities WHERE countryName LIKE '" + country + "'";
         Cursor recordSet = dbCities.rawQuery(selectQuery,null);
 
         int count = recordSet.getCount();
