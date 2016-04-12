@@ -4,9 +4,11 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,14 +19,22 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    ListView listView;
+    ArrayList<String> events;
+    ArrayList<String> descriptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        events = new ArrayList<String>();
+        descriptions = new ArrayList<String>();
+
         Button btnFill = (Button) findViewById(R.id.btnFill);
         btnFill.setOnClickListener(new ButtonClick());
+
+        listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(new ItemClick());
     }
 
     private class ButtonClick implements View.OnClickListener{
@@ -35,18 +45,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class ItemClick implements AdapterView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String description = descriptions.get(position).toString();
+            //String description = parent.getItemAtPosition(position).toString();
+            Toast.makeText(MainActivity.this,description,Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void fillList(){
-        ListView listView = (ListView) findViewById(R.id.listView);
-
-        ArrayList<String> events = getEvents();
-
+        getEvents();
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,events);
         listView.setAdapter(adapter);
     }
 
-    public ArrayList<String> getEvents(){
-        ArrayList<String> events = new ArrayList<String>();
-
+    public void getEvents(){
         String fileName = "dunedin_events.json";
 
         AssetManager am = getAssets();
@@ -76,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject event = eventsArray.getJSONObject(i);
                     String title = event.getString("title");
                     events.add(title);
+
+                    String description = event.getString("description");
+                    descriptions.add(description);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -83,6 +100,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return events;
     }
 }
