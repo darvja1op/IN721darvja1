@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             try{
                 String urlString = "http://ws.audioscrobbler.com/2.0/"+
                         "?method=artist.getSimilar&artist="+artist[0]+
-                        "api_key=58384a2141a4b9737eacb9d0989b8a8c&limit=10&format=json";
+                        "&api_key=58384a2141a4b9737eacb9d0989b8a8c&limit=10&format=json";
 
                 URL URLObject = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) URLObject.openConnection();
