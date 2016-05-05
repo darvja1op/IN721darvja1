@@ -9,8 +9,79 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="bit.darvja1.locationteleporter.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teleport!"
+        android:id="@+id/btnGenerate"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Latitude:"
+        android:id="@+id/txtLatitude"
+        android:layout_below="@+id/btnGenerate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Longitude:"
+        android:id="@+id/txtLongitude"
+        android:layout_below="@+id/txtLatitude"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/txtLatitudeDisplay"
+        android:layout_alignTop="@+id/txtLatitude"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/txtLongitudeDisplay"
+        android:layout_below="@+id/txtLatitudeDisplay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Closest City:"
+        android:id="@+id/txtCity"
+        android:layout_below="@+id/txtLongitude"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/txtCityDisplay"
+        android:layout_alignBottom="@+id/txtCity"
+        android:layout_alignRight="@+id/txtLongitudeDisplay"
+        android:layout_alignEnd="@+id/txtLongitudeDisplay" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="400sp"
+        android:id="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtCity" />
+
 </RelativeLayout>
