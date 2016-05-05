@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         TextView txtLatitude = (TextView) findViewById(R.id.txtLatitudeDisplay);
         TextView txtLongitude = (TextView) findViewById(R.id.txtLongitudeDisplay);
 
-        txtLatitude.setText(Double.toString((double)Math.round(latitude * 100000d) / 100000d));
-        txtLongitude.setText(Double.toString((double)Math.round(longitude * 100000d) / 100000d));
+        txtLatitude.setText(Double.toString((double)Math.round(latitude * 10000d) / 1000d));
+        txtLongitude.setText(Double.toString((double)Math.round(longitude * 10000d) / 1000d));
     }
 }
