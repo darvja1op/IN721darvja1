@@ -96,39 +96,41 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... arg0) {
             String JSONString = null;
-            generateCoordinates();
 
-            try{
-                String urlString = "http://www.geoplugin.net/extras/location.gp?"+
-                                    "lat="+latitude+"&long="+longitude+"&format=json";
+            do{
+                generateCoordinates();
 
-                URL URLObject = new URL(urlString);
-                HttpURLConnection connection = (HttpURLConnection) URLObject.openConnection();
+                try{
+                    String urlString = "http://www.geoplugin.net/extras/location.gp?"+
+                            "lat="+latitude+"&long="+longitude+"&format=json";
 
-                connection.connect();
-                int responseCode = connection.getResponseCode();
+                    URL URLObject = new URL(urlString);
+                    HttpURLConnection connection = (HttpURLConnection) URLObject.openConnection();
 
-                if (responseCode != 200){
-                    //no data
-                    Toast.makeText(MainActivity.this, "No Data found", Toast.LENGTH_LONG).show();
+                    connection.connect();
+                    int responseCode = connection.getResponseCode();
+
+                    if (responseCode != 200){
+                        //no data
+                        Toast.makeText(MainActivity.this, "No Data found", Toast.LENGTH_LONG).show();
+                    }
+
+                    InputStream inputStream = connection.getInputStream();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                    String responseString;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((responseString = bufferedReader.readLine()) != null){
+                        stringBuilder = stringBuilder.append(responseString);
+                    }
+
+                    JSONString = stringBuilder.toString();
                 }
-
-                InputStream inputStream = connection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                String responseString;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((responseString = bufferedReader.readLine()) != null){
-                    stringBuilder = stringBuilder.append(responseString);
+                catch (Exception e){
+                    e.printStackTrace();
                 }
-
-                JSONString = stringBuilder.toString();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-
+            } while (JSONString.equals("[[]]"));
             return JSONString;
         }
 
