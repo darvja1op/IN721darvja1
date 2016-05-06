@@ -147,9 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView txtView = (TextView) customView.findViewById(R.id.textView);
                 TextView txtView2 = (TextView) customView.findViewById(R.id.textView2);
-
-
-
                 return customView;
             }
         }

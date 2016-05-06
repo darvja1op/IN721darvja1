@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            generateCoordinates();
+            AsyncAPI APIThread = new AsyncAPI();
+            APIThread.execute();
         }
     }
 
@@ -54,42 +55,48 @@ public class MainActivity extends AppCompatActivity {
         doubleGen = rand.nextDouble();
         intGen = rand.nextInt(360) - 179;
         longitude = doubleGen + intGen;
-
-        displayCoordinates();
     }
 
     public void displayCoordinates(){
         TextView txtLatitude = (TextView) findViewById(R.id.txtLatitudeDisplay);
         TextView txtLongitude = (TextView) findViewById(R.id.txtLongitudeDisplay);
+        TextView txtLocation = (TextView) findViewById(R.id.txtCityDisplay);
 
         txtLatitude.setText(Double.toString((double)Math.round(latitude * 10000d) / 1000d));
         txtLongitude.setText(Double.toString((double) Math.round(longitude * 10000d) / 1000d));
+
+        txtLocation.setText(location);
     }
 
     public void processJSON(String JSONString){
         JSONObject JSON = null;
         try {
-            JSON = new JSONObject(JSONString);
-            String name = JSON.getString("geoplugin_place");
-            String countryCode = JSON.getString("geoplugin_countryCode");
 
-            location = name + ", " + countryCode;
+            if(JSONString.equals("[[]]")){
+                location = "No location found.";
+            }
+            else{
+                JSON = new JSONObject(JSONString);
+                String name = JSON.getString("geoplugin_place");
+                String countryCode = JSON.getString("geoplugin_countryCode");
 
-            displayCoordinates();
+                location = name + ", " + countryCode;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private class AsyncAPI extends AsyncTask<String,Void,String> {
+    private class AsyncAPI extends AsyncTask<Void,Void,String> {
 
         @Override
         protected void onPreExecute(){
         }
 
         @Override
-        protected String doInBackground(String... artist) {
+        protected String doInBackground(Void... arg0) {
             String JSONString = null;
+            generateCoordinates();
 
             try{
                 String urlString = "http://www.geoplugin.net/extras/location.gp?"+
@@ -128,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String fetchedString){
             //pass string to appropriate place
             processJSON(fetchedString);
+            displayCoordinates();
         }
     }
 }
