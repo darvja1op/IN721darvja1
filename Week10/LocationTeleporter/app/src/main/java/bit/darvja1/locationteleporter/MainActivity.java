@@ -1,5 +1,6 @@
 package bit.darvja1.locationteleporter;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     String location;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute(){
+            progress = ProgressDialog.show(MainActivity.this,"Search","Finding a Location...",true);
         }
 
         @Override
@@ -136,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(String fetchedString){
             //pass string to appropriate place
+            progress.dismiss();
             processJSON(fetchedString);
             displayCoordinates();
         }
