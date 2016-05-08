@@ -1,17 +1,20 @@
 package bit.darvja1.locationteleporter;
 
 import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            AsyncAPI APIThread = new AsyncAPI();
+            AsyncAPILocation APIThread = new AsyncAPILocation();
             APIThread.execute();
         }
     }
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         txtLocation.setText(location);
     }
 
-    public void processJSON(String JSONString){
+    public void processJSONLocation(String JSONString){
         JSONObject JSON = null;
         try {
 
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class AsyncAPI extends AsyncTask<Void,Void,String> {
+    private class AsyncAPILocation extends AsyncTask<Void,Void,String> {
 
         @Override
         protected void onPreExecute(){
@@ -140,8 +143,102 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String fetchedString){
             //pass string to appropriate place
             progress.dismiss();
-            processJSON(fetchedString);
+            processJSONLocation(fetchedString);
+            AsyncAPIFlickr APIThread = new AsyncAPIFlickr();
+            APIThread.execute();
             displayCoordinates();
+        }
+    }
+
+    private class AsyncAPIFlickr extends AsyncTask<Void,Void,String> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(Void... arg0) {
+            String JSONString = null;
+            try {
+                String urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&" +
+                        "api_key=38e7675f8a53235fd4886b57093e1dcf" +
+                        "&tags=" + location + "&format=json&nojsoncallback=1";
+
+                URL URLObject = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) URLObject.openConnection();
+
+                connection.connect();
+                int responseCode = connection.getResponseCode();
+
+                if (responseCode != 200) {
+                    //no data
+                    Toast.makeText(MainActivity.this, "No Data found", Toast.LENGTH_LONG).show();
+                }
+
+                InputStream inputStream = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                String responseString;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((responseString = bufferedReader.readLine()) != null) {
+                    stringBuilder = stringBuilder.append(responseString);
+                }
+
+                JSONString = stringBuilder.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return JSONString;
+        }
+
+
+        protected void onPostExecute(String fetchedString) {
+            //pass string to appropriate place
+            processJSONFlickr(fetchedString);
+        }
+    }
+
+        public void processJSONFlickr(String JSONString) {
+            JSONObject JSON = null;
+            Random rand = new Random();
+            ImageView image = (ImageView) findViewById(R.id.imageView);
+            try {
+                JSON = new JSONObject(JSONString);
+                JSONArray photos = JSON.getJSONArray("photos");
+                int total = JSON.getInt("total");
+
+                if (total == 0) {
+                    //no image found
+                    TextView txtNoImage = (TextView) findViewById(R.id.txtNoImage);
+                } else {
+                    int randomSlot = rand.nextInt(total);
+                    JSONObject photo = photos.getJSONObject(randomSlot);
+
+                    //get relevant info to construct URL
+                    String id = photo.getString("id");
+                    String serverID = photo.getString("server");
+                    int farmID = photo.getInt("farm");
+                    String secret = photo.getString("secret");
+
+                    String URL = "https://farm"+farmID+".staticflickr.com/"+serverID+
+                                "/"+id+"_"+secret+".jpg";
+
+                    image.setImageDrawable(LoadImageFromWebOperations(URL));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    public static Drawable LoadImageFromWebOperations(String url){
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "Flickr");
+            return d;
+        }
+        catch (Exception e){
+            return null;
         }
     }
 }
