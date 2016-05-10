@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     String location;
+    String name;
     ProgressDialog progress;
 
     @Override
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         TextView txtLongitude = (TextView) findViewById(R.id.txtLongitudeDisplay);
         TextView txtLocation = (TextView) findViewById(R.id.txtCityDisplay);
 
-        txtLatitude.setText(Double.toString((double)Math.round(latitude * 10000d) / 1000d));
-        txtLongitude.setText(Double.toString((double) Math.round(longitude * 10000d) / 1000d));
+        txtLatitude.setText(String.format("%.3f", latitude));
+        txtLongitude.setText(String.format("%.3f", longitude));
 
         txtLocation.setText(location);
 
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 JSON = new JSONObject(JSONString);
-                String name = JSON.getString("geoplugin_place");
+                name = JSON.getString("geoplugin_place");
                 String countryCode = JSON.getString("geoplugin_countryCode");
 
                 location = name + ", " + countryCode;
@@ -163,9 +164,8 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(Void... arg0) {
             String JSONString = null;
             try {
-                String urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&" +
-                        "api_key=eda41a123d459be0f85276d37290651e" +
-                        "&text=" + location + "&format=json&nojsoncallback=1";
+                String urlString = "https://api.flickr.com/services/rest/?format=json&nojsoncallback=1&method=flickr.photos.search&" +
+                        "api_key=eda41a123d459be0f85276d37290651e" + "&tags=" + location;
 
                 URL URLObject = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) URLObject.openConnection();
@@ -211,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSON = new JSONObject(JSONString);
                 JSONObject photos = JSON.getJSONObject("photos");
-                int total = photos.getInt("total");
                 JSONArray photoArray = photos.getJSONArray("photo");
+                int total = photoArray.length();
 
                 if (total == 0) {
                     //no image found
