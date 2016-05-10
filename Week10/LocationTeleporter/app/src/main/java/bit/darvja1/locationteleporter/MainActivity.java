@@ -1,8 +1,15 @@
 package bit.darvja1.locationteleporter;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnTeleport.setOnClickListener(new ButtonListener());
     }
 
-    private class ButtonListener implements View.OnClickListener{
+    private class ButtonListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
@@ -50,18 +57,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void generateCoordinates(){
-        Random rand = new Random();
-        double doubleGen;
-        int intGen;
+    public void generateCoordinates() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria defaultCriteria = new Criteria();
 
-        doubleGen = rand.nextDouble();
-        intGen = rand.nextInt(180) - 89;
-        latitude = doubleGen + intGen;
+        String providerName = locationManager.getBestProvider(defaultCriteria, false);
 
-        doubleGen = rand.nextDouble();
-        intGen = rand.nextInt(360) - 179;
-        longitude = doubleGen + intGen;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Location currentLocation = locationManager.getLastKnownLocation(providerName);
+            latitude = currentLocation.getLatitude();
+            longitude = currentLocation.getLongitude();
+        }
     }
 
     public void displayCoordinates(){
