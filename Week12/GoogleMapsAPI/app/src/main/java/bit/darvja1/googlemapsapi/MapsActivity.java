@@ -40,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng location;
     String cityName;
     String locationName;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onClick(View v) {
             generateCoordinates();
+            AsyncAPILocation APIThread = new AsyncAPILocation();
+            APIThread.execute();
         }
     }
 
@@ -68,21 +71,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         generateCoordinates();
 
+        setMap();
+    }
+
+    public void setMap(){
         mMap.addMarker(new MarkerOptions().position(location).title(locationName));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
 
     public void generateCoordinates() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria defaultCriteria = new Criteria();
+        Random rand = new Random();
+        double doubleGen;
+        int intGen;
 
-        String providerName = locationManager.getBestProvider(defaultCriteria, false);
+        doubleGen = rand.nextDouble();
+        intGen = rand.nextInt(180) - 89;
+        latitude = doubleGen + intGen;
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Location currentLocation = locationManager.getLastKnownLocation(providerName);
-            latitude = currentLocation.getLatitude();
-            longitude = currentLocation.getLongitude();
-        }
+        doubleGen = rand.nextDouble();
+        intGen = rand.nextInt(360) - 179;
+        longitude = doubleGen + intGen;
+
+        location = new LatLng(latitude,longitude);
     }
 
     public void processJSONLocation(String JSONString){
@@ -90,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
 
             if(JSONString.equals("[[]]")){
-                cityName = "No location found.";
+                locationName = "No location found.";
             }
             else{
                 JSON = new JSONObject(JSONString);
@@ -102,12 +112,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        setMap();
     }
 
     private class AsyncAPILocation extends AsyncTask<Void,Void,String> {
 
         @Override
         protected void onPreExecute(){
+            progress = ProgressDialog.show(MapsActivity.this,"Search","Finding a Location...",true);
         }
 
         @Override
@@ -153,6 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         protected void onPostExecute(String fetchedString){
             //pass string to appropriate place
+            progress.dismiss();
             processJSONLocation(fetchedString);
         }
     }
